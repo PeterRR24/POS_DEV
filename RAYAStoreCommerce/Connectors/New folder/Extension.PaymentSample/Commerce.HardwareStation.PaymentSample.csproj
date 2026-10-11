@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.props" />
+  <Import Project="..\..\..\BuildTools\Common.props" />
+  <Import Project="..\..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.settings" />
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>BanqueMisrDeviceName</AssemblyName>
+    <RootNamespace>BanqueMisrDeviceName</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.Dynamics.Commerce.HardwareStation.CardPayment" Version="$(HardwareRepoPackagesVersion)" />
+	  <PackageReference Include="Microsoft.Dynamics.Commerce.HardwareStation.PayTerminal" Version="$(HardwareRepoPackagesVersion)" />
+	  <PackageReference Include="Microsoft.Dynamics.Commerce.HardwareStation.Peripherals.SigCap" Version="$(HardwareRepoPackagesVersion)" />
+	  <PackageReference Include="Microsoft.Dynamics.Commerce.VirtualPeripherals.MessagePipelineProxy" Version="$(HardwareRepoPackagesVersion)" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Runtime.Entities" Version="9.51.24333.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RRMiseCon">
+      <HintPath>C:\Users\localadmin\Desktop\RAYAStoreCommerce\Connectors\HardWareStation\Extension.PaymentSample\bin\Debug\net472\RRMiseCon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="..\..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.targets" />
+</Project>

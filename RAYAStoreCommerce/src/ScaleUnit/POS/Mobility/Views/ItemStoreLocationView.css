@@ -1,0 +1,57 @@
+﻿
+.width15Percent {
+    min-width: 15%;
+    max-width: 15%;
+    width: 15%;
+}
+
+.category-tree {
+    /*overflow-y: scroll;*/
+}
+
+.category {
+    margin: 0px;
+    list-style-type: circle;
+    cursor: pointer;
+}
+
+.product {
+    margin: 0px;
+    list-style-type: square;
+    cursor: pointer;
+}
+
+.rootCategory {
+    padding-left: 10px !important;
+}
+
+.rootCategory label {
+    display: inline-block;
+    width: auto;
+}
+
+/*#rangingLoader.page-loader {
+    z-index:1025 !important;
+}*/
+
+
+.rotate90 span.win-commandimage {
+-webkit-transform: rotate(90deg); /* Safari */
+-moz-transform: rotate(90deg); /* Firefox */
+-ms-transform: rotate(90deg); /* IE */
+-o-transform: rotate(90deg); /* Opera */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /* Internet Explorer */
+}
+
+.rotate-90 span.win-commandimage {
+-webkit-transform: rotate(-90deg); /* Safari */
+-moz-transform: rotate(-90deg); /* Firefox */
+-ms-transform: rotate(-90deg); /* IE */
+-o-transform: rotate(-90deg); /* Opera */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.arrowIcon:before{content:"\E72B"}
+.win-appbar.dynamicsSymbolFont button.arrowIcon{width:auto;border-radius:0}
+.win-appbar.dynamicsSymbolFont button.arrowIcon:before{content:''}
+.win-appbar.dynamicsSymbolFont button.arrowIcon .win-commandimage:before{content:"\E72B"}

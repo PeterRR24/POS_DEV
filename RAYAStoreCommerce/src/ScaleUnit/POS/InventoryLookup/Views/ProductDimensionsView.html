@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ProductDimensionsView</title>
+    <link href="ProductDimensionsView.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="fragment dimensionView">
+        <div>
+            <div class="height100Percent">
+                <div class="fragment productdetails">
+                    
+                    <section class="height100Percent" role="main">
+
+                        <div id="dimensionFlyout" class="dimensionFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Dimension flyout}">
+                            <div class="dimensionFlyoutContent">
+                                <div class="dimensionContent margin0 alternateBackgroundColor1" style="padding: 0em 0.5em 0.4em 0.5em !important;background-color:#fff">
+                                    <div id="dimensionNameList" style="height:auto !important;" class="pad0 margin0" data-bind='foreach: viewModel.dimensions'>
+                                        <div class="dimension-grid accentBackground marginTop05 pad02">
+                                            <button class="iconDown Upbutton" data-bind="click: $root.dimensionPositioHandler.bind($data, 'up')"></button>
+                                            <h4 class="ellipsis" data-bind="text: name"></h4>
+                                            <button class="iconDown" data-bind="click: $root.dimensionPositioHandler.bind($data, 'down')"></button>
+                                        </div>
+                                    </div>
+                                    <div class="dimensionOrderActionContainer row">
+                                        <div class="col grow">
+                                            <button class="iconAccept" data-bind="click: $root.dimensionOrderHandler.bind($data, 'apply', false)"></button>
+                                        </div>
+                                        <div class="col">
+                                            <button class="iconCancel" data-bind="click: $root.dimensionOrderHandler.bind($data, 'cancel', false)"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin4">
+                            <h3 class="h3" data-bind="text: viewModel.productName"></h3>
+                        </div>
+                        <div class="productMatrix">
+                            <input type="hidden" id="hidDimension" name="hidDimension" value="" />
+                            <!-- ko if: viewModel.bDimension4() -->
+                            <div class="dimension-grid dimension-list commerceButtonGrid">
+                                <div class="buttonHeight5 buttonWidth12 direction-rtl">
+                                    <div class="pad0 margin0 dimension4Header">
+                                        <!--<h4 class="ellipsis" data-bind="text: viewModel.dimensionName4"></h4>-->
+                                    </div>
+                                </div>
+                                <div class="dimension-grid buttonsContainer dimensionList4" data-bind='foreach: viewModel.dimensionList4'>
+                                    <div class="widthAuto heightAuto" data-bind="click: $root.dimensionHandler.bind($root)">
+                                        <button class="pad0 margin0 primaryBackgroundColor button buttonHeight5 buttonAllDimension" data-bind="css:{'highlightSelected-thickBorder': isSelected}">
+                                            <div>
+                                                <h4 class="ellipsis" data-bind="text: $data.text"></h4>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: viewModel.bDimension3() -->
+                            <div class="dimension-grid dimension-list commerceButtonGrid">
+                                <div class="buttonHeight5 buttonWidth12 direction-rtl">
+                                    <div class="pad0 margin0 dimension3Header">
+                                        <!--<h4 class="ellipsis" data-bind="text: viewModel.dimensionName3"></h4>-->
+                                    </div>
+                                </div>
+                                <div class="dimension-grid buttonsContainer dimensionList3" data-bind='foreach: viewModel.dimensionList3'>
+                                    <div class="widthAuto heightAuto" data-bind="click: $root.dimensionHandler.bind($root)">
+                                        <button class="pad0 margin0 primaryBackgroundColor button buttonHeight5 buttonAllDimension" data-bind="css:{'highlightSelected-thickBorder': isSelected}">
+                                            <div>
+                                                <h4 class="ellipsis" data-bind="text: $data.text"> </h4>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: viewModel.bDimension2() -->
+                            <div class="dimension-grid dimension-list commerceButtonGrid">
+                                <div class="buttonDimension1 textCenter">
+                                    <button id="popupButton" class="iconSort dimensionSetting" data-bind="click: $root.showDimensionPopup, visible: viewModel.bDimension2"></button>
+                                </div>
+                                <div class="dimension-grid buttonsContainer" data-bind='foreach: viewModel.dimensionList2'>
+                                    <div class="widthAuto heightAuto">
+                                        <div data-bind="attr: {id: $root.viewModel.dimensionName2() + '-' + $data.value },
+                                                    click: $data.idx === 0 ? $root.alternateDimensionPopup2.bind($data, $root.viewModel.dimensionName2(), $root) : function() { return false; },
+                                                    style: { cursor: $data.idx === 0 ? 'pointer' : 'default' }"
+                                             class="pad0 margin0 dimension2Header buttonAllDimension buttonHeight5 accentBackground">
+                                            <h4 class="ellipsis" data-bind="text: $data.text, style: { 'text-decoration': $data.idx === 0 ? 'underline' : 'none' }"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <div data-bind='foreach: filteredVariants'>
+                                <div class="dimension-grid dimension-list commerceButtonGrid">
+                                    <div class="buttonHeight5 buttonDimension1 direction-rtl">
+                                        <div data-bind="attr: {id: $root.viewModel.dimensionName1() + '-' + groupVal },
+                                                    click: $index() === 0 && $root.viewModel.bDimension2() ? $root.alternateDimensionPopup.bind($data, $root.viewModel.dimensionName1(), $root) : function() { return false; },
+                                                    style: { cursor: $index() === 0 && $root.viewModel.bDimension2() ? 'pointer' : 'default' }"
+                                             class="pad0 margin0 dimension1Header accentBackground">
+                                            <h4 class="ellipsis" data-bind="text: groupTxt, style: { 'text-decoration': $index() === 0 ? 'underline' : 'none' }"></h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="dimension-grid buttonsContainer" data-bind='foreach: itemList'>
+
+                                        <div class="widthAuto heightAuto">
+                                            <button class="pad8 margin0 button buttonAllDimension primaryBackgroundColor"
+                                                    data-bind="attr: { title: ProductNumber }, css:{'highlightSelected': VariantId === $root.frequentlySelectedVariant(), 'slashBackground': Quantity == 0},
+                                                            click: $root.variantHandler.bind($data, $root,'add', $root.viewModel.dimensionName1() + '-' + $parent.groupVal, ($parent.b_filter2 ? $root.viewModel.dimensionName2() + '-' + $parent.secondFilter[$index()].value : ''))">
+                                                <!--event:{ mousedown: $root.mouseDown.bind($data, $root), mouseup: $root.mouseUp.bind($data, $root, $root.viewModel.dimensionName1() + '-' + $parent.group, ($parent.b_filter2 ? $root.viewModel.dimensionName2() + '-' + $parent.secondFilter[$index()].text : ''))}, -->
+                                                <div class="">
+                                                    <!-- ko if: !$parent.b_filter2 -->
+                                                    <h4 class="textCenter" data-bind="text: $parent.groupTxt"></h4>
+                                                    <!-- /ko -->
+                                                    <!-- ko if: $parent.b_filter2 -->
+                                                    <h4 class="textCenter" data-bind="text: $parent.groupTxt + ' ' + $parent.secondFilter[$index()].text"></h4>
+                                                    <!-- /ko -->
+                                                    <h4 class="textCenter" data-bind="text: Commerce.Formatters.PriceFormatter(Price)"></h4>
+                                                    <!-- ko if: TransQuantity === 0 -->
+                                                    <h4 class="textCenter accentColor" data-bind="text: Commerce.Formatters.NumberFormatter(Quantity), css:{'redContent': Quantity < 0}"></h4>
+                                                    <!-- /ko -->
+                                                    <!-- ko if: TransQuantity > 0 -->
+                                                    <h4 class="textCenter accentColor" data-bind="text: Commerce.Formatters.NumberFormatter(TransQuantity) + ' / ' + Commerce.Formatters.NumberFormatter(Quantity), css:{'redContent': Quantity < 0}"></h4>
+                                                    <!-- /ko -->
+                                                </div>
+                                            </button>
+                                            <!-- ko if: TransQuantity > 0 -->
+                                            <h6 class="textRight redColor" style="margin-top: -20px; display: none;" data-bind="click: $root.variantHandler.bind($data, $root,'remove')">Reset</h6>
+                                            <!-- /ko -->
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+            <div id="buttonInteractionMenu"></div>
+            <div id="buttonInteractionMenu2"></div>
+        </div>
+
+    </div>
+</body>
+</html>

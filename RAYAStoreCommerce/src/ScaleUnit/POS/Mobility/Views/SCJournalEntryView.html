@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Stock Take Journal Entry</title>
+    <link href="SCJournalEntryView.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="fragment searchView">
+            <div class="row marginBottom4 gridHeader">
+                <div class="row">
+                    <form>
+                        <div class="search-wrapper row marginTop4 marginLeft8">
+                            <input class="noPad margin0 ratio height40 splitViewSearchText" style="padding-right: 8px; padding-left: 8px;"
+                                   data-bind="value: viewModel.searchText, valueUpdate: 'afterkeydown'"
+                                   aria-label="Search" type="search" maxlength="30" autocomplete="off">
+                            <button class="searchButton iconSearch margin0 height40 splitViewSearchButton padRight8" aria-label="Search"
+                                    type="submit" data-bind="click: searchClickHandler"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="grow"></div>
+            </div>
+
+            <div class="height100Percent">
+                <div class="col grow journalEntryListContainer">
+
+                    <div id="listScJournalEntryview"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

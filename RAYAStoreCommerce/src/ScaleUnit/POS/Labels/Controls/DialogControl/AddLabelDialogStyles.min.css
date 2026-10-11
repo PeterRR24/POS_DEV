@@ -1,0 +1,40 @@
+.sampleExtension_dialogSample .blueBorder{border:solid red 1px}
+/*# sourceMappingURL=DialogSampleStyles.min.css.map */
+
+div.dialog-date-panel {
+    padding: 4px;
+}
+
+div.dialog-date-picker .win-datepicker-date {
+    min-width: 70px;
+    width: 70px;
+    margin-right: 2px !important;
+}
+
+div.dialog-date-picker .win-datepicker-month {
+    min-width: 120px;
+    width: 120px;
+    margin-right: 2px;
+}
+
+div.dialog-date-picker .win-datepicker-year {
+    min-width: 90px;
+    width: 90px;
+}
+
+div.dialog-date-panel {
+    margin-top: -8px;
+}
+
+div.dialog-date-panel .price-date {
+    padding-top: 5px;
+    margin-left: 4px;
+}
+
+div.dialog-date-panel .win-toggleswitch .win-toggleswitch-header {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;    
+}
+div.dialog-date-panel .win-toggleswitch .win-toggleswitch-value {
+    margin-left: 8px;
+}

@@ -1,0 +1,12 @@
+<Project>
+  <Import Project="..\..\repo.props" />
+
+  <PropertyGroup>
+    <PackagePublisher Condition="'$(PackagePublisher)' == ''">$(Publisher)</PackagePublisher>
+    <PackagePublisherDisplayName Condition="'$(PackagePublisherDisplayName)' == ''">$(PublisherDisplayName)</PackagePublisherDisplayName>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">$(Version)</PackageVersion>
+    <PackageName Condition="'$(PackageName)' == ''">RAYACommerce</PackageName>
+    <PackageDisplayName Condition="'$(PackageDisplayName)' == ''">RAYA Scale Unit Commerce Customization</PackageDisplayName>
+    <PackageDescription Condition="'$(PackageDescription)' == ''">RAYA Scale Unit Commerce Customization</PackageDescription>
+  </PropertyGroup>
+</Project>

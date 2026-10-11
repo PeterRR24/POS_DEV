@@ -1,0 +1,160 @@
+﻿
+.label-print-dialog {
+    height: 600px !important;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px !important;
+}
+
+.stock-count-journal-dialog {
+    height: 600px !important;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px !important;
+}
+.journalListContainer {
+    height: 100%;
+    /*height: calc(-40px + 100%);
+    margin-bottom: 40px;*/
+}
+.category-tree {
+    overflow-y: scroll;
+}
+
+.category {
+    margin: 0px;
+    list-style-type: circle;
+    cursor: pointer;
+}
+
+.product {
+    margin: 0px;
+    list-style-type: square;
+    cursor: pointer;
+}
+
+.rootCategory label {
+    display: inline-block;
+    width: auto;
+}
+
+.dialogContainer2 label {
+    margin-top: 0px !important;
+}
+
+.actionPanel .buttonContainer > button {
+    color: #ffffff;
+    display: inline-block;
+    padding: calc(1em/1.4 * 0.4) calc(1em/1.4 * 2);
+    text-align: center;
+    font-size: 1.4em;
+    border: calc(1em/1.4 * 0.2) solid #1D1D1D;
+    min-width: calc(1em/1.4 * 9);
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+}
+
+    .actionPanel .buttonContainer > button:disabled,
+    .actionPanel .buttonContainer > button.dialogPrimaryButton:disabled,
+    .actionPanel .buttonContainer > button.dialogSecondaryButton:disabled {
+        background-color: #CCCCCC;
+        border-color: #999999;
+        color: #999999;
+    }
+
+    .actionPanel .buttonContainer > button.dialogSecondaryButton {
+        background-color: #a6a6a6;
+    }
+
+.actionPanel .buttonContainer {
+    display: inline-block;
+    height: 4em;
+}
+
+.from-date, .to-date {
+    width: 35em !important;
+    min-width: 35em !important;
+    max-width: 35em !important;
+}
+
+#stockCountJournalDialog input[type=radio] {
+    display: inline-block !important;
+}
+
+.axJournalList {
+    margin: 15px !important;
+}
+
+.journal-list-background {
+   background: #F1F3F5;
+}
+
+/*div.tableheaderrow {
+    width: 200px;
+}*/
+
+div.tablecell {
+    /*width: 200px;*/
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    display: block;
+}
+
+div.tablecell h4 {
+    margin-left: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+div.selectedRow {
+    background-color: green !important ;
+    color: #fff;
+}
+
+div.tablerow:hover {
+    background-color: green;
+    color: #fff;
+}
+
+div.tablerow {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.rotate-90 span.win-commandimage {
+-webkit-transform: rotate(-90deg); /* Safari */
+-moz-transform: rotate(-90deg); /* Firefox */
+-ms-transform: rotate(-90deg); /* IE */
+-o-transform: rotate(-90deg); /* Opera */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.rotate90 span.win-commandimage {
+-webkit-transform: rotate(90deg); /* Safari */
+-moz-transform: rotate(90deg); /* Firefox */
+-ms-transform: rotate(90deg); /* IE */
+-o-transform: rotate(90deg); /* Opera */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /* Internet Explorer */
+}
+
+.iconBar:before{content:"\EA37"}
+.win-appbar.dynamicsSymbolFont button.iconBar{width:auto;border-radius:0}
+.win-appbar.dynamicsSymbolFont button.iconBar:before{content:''}
+.win-appbar.dynamicsSymbolFont button.iconBar .win-commandimage:before{content:"\EA37"}
+
+.iconImpExp:before{content:"\EE2F"}
+.win-appbar.dynamicsSymbolFont button.iconImpExp{width:auto;border-radius:0}
+.win-appbar.dynamicsSymbolFont button.iconImpExp:before{content:''}
+.win-appbar.dynamicsSymbolFont button.iconImpExp .win-commandimage:before{content:"\EE2F"}
+
+.hidden { display:none; }

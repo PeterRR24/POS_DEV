@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Condition=" '$(EAZFUSCATOR_NET_HOME)' != '' and Exists('$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets') " Project="$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets" />
+  <!--<Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.props" />
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.settings" />
+  <Import Project="..\..\BuildTools\Common.props" />-->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>$(AssemblyNamePrefix).Utility</AssemblyName>
+    <RootNamespace>RR.Utility</RootNamespace>
+    <IgnoreAssemblyDuringSdkGeneration>false</IgnoreAssemblyDuringSdkGeneration>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <ShippingSourceCode>true</ShippingSourceCode>
+    <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
+    <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
+    <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
+    <EazfuscatorCompatibilityVersion>2020.4</EazfuscatorCompatibilityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--<PackageReference Include="Microsoft.ApplicationInsights" Version="2.17.0" />-->
+    <PackageReference Include="Microsoft.Dynamics.Commerce.PaymentSDK.Portable" Version="10.53.25083.1" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Runtime.Data" Version="9.53.25091.7" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+	<!-- 
+	Include below reference for sdk below 10.0.32 
+	<PackageReference Include="System.Drawing.Common" Version="4.6.0" />  
+	-->
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>bin\Debug\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RR.Retail.Security">
+      <HintPath>..\..\..\RR.Retail.Security.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--<Import Project="..\..\BuildTools\RR.Microsoft.Dynamics.RetailSdk.Build.targets" />-->
+  <PropertyGroup>
+    <WindowsKitsRoot>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot10', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot81', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <SignToolPath Condition=" '$(SignToolPath)' == '' And '$(Platform)' == 'AnyCPU' ">$(WindowsKitsRoot)bin\x86\</SignToolPath>
+    <SignToolPath Condition="'$(SignToolPath)' == ''">$(WindowsKitsRoot)bin\$(Platform)\</SignToolPath>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="if /I &quot;$(ConfigurationName)&quot; == &quot;Release&quot; &quot;$(SignToolPath)signtool.exe&quot; sign /tr http://timestamp.sectigo.com /td sha256 /fd sha256 /a &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

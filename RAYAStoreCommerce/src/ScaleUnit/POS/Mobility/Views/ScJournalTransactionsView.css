@@ -1,0 +1,11 @@
+﻿body
+{
+}
+.journalTransactionListContainer {
+    height: calc(-40px + 100%);
+    margin-bottom: 40px;
+}
+.iconCount:before{content:"\E9EE"}
+.win-appbar.dynamicsSymbolFont button.iconCount{width:auto;border-radius:0}
+.win-appbar.dynamicsSymbolFont button.iconCount:before{content:''}
+.win-appbar.dynamicsSymbolFont button.iconCount .win-commandimage:before{content:"\E9EE"}

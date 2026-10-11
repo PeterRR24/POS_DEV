@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Stock Take</title>
+    <link href="StockTakeJournalsView.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="fragment searchView">
+            <div class="row marginBottom4 gridHeader">
+                <div class="row">
+                    <form>
+                        <div class="search-wrapper row marginTop4 marginLeft8">
+                            <input class="noPad margin0 ratio height40 splitViewSearchText" style="padding-right: 8px; padding-left: 8px;"
+                                   data-bind="value: viewModel.searchText, valueUpdate: 'afterkeydown'"
+                                   aria-label="Search" type="search" maxlength="30" autocomplete="off">
+                            <button class="searchButton iconSearch margin0 height40 splitViewSearchButton padRight8" aria-label="Search"
+                                    type="submit" data-bind="click: searchClickHandler"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="grow"></div>
+                <div>
+                    <div class="row marginTop4 marginRight20">
+                        <h4 class="width72 padTop8" data-bind="resx: { textContent: _context.resources.getString('JOURNAL_STATUS') }"> </h4>
+                        <select class="width84 height40" data-bind="options: arrJournalTypes,
+                                optionsText: 'JournalStatus', optionsValue: 'Value', value: viewModel.journalType"></select>
+                    </div>
+                </div>
+                <div class="hidden">
+                    <input type="file" id="filePath" data-bind="event: { change: FileDialogHandler }" accept=".xml" />
+                </div>
+            </div>
+
+            <div class="height100Percent">
+                <div class="col grow journalListContainer">
+                    <div id="listJournalview"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stockCountJournalDialog" class="commerceDialog stock-count-journal-dialog" data-bind="visible: viewModel.isShowDialog">
+
+            <div class="modal-backdrop"></div>
+            <div class="dialogContainer centerY">
+                <div class="dialogContainer2 row">
+                    <div class="col grow marginTop20"></div>
+                    <div class="col grow marginTop0 width100Percent">
+
+                        <div class="row no-shrink dialogTitlePlacehoder">
+                            <div class="marginTop0 padTop4 padRight12 padLeft12">
+                                <h2 class="title" data-bind="text: _context.resources.getString('ADD_JOURNAL_DIALOG_TITLE')"></h2>
+                            </div>
+                        </div>
+
+                        <form class="col grow padLeft12 padRight12 padTop4 padBottom2" autocomplete="off">
+
+                            <!--<div data-bind="loader: { visible: viewModel.isDialogModeBusy }"></div>-->
+
+                            <div class="row">
+
+                                <div class="height500 width100Percent" data-bind="visible: page1Visible">
+                                    <div class="journal-list-background">
+                                        <div class="height500">
+                                            <div class="col grow overflowYVisible">
+                                                <div class="standardGrid axJournalList">
+                                                    <div class="row listViewHeader">
+                                                        <div class="tableheaderrow ratio3">
+                                                            <h6 data-bind="text: _context.resources.getString('JOURNAL_ID')"></h6>
+                                                        </div>
+                                                        <div class="tableheaderrow ratio7">
+                                                            <h6 data-bind="text: _context.resources.getString('JOURNAL_DESCRIPTION')"></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div id="divSCJournals" data-bind='foreach: viewModel.axSCJournals()'>
+                                                        <div class="row listViewLine tablerow" data-bind="click: $root.getJournal.bind($data, $root)">
+                                                            <div>
+                                                                <input type="hidden" data-bind="attr: { id: $data.Journal.RecordId } " />
+                                                            </div>
+                                                            <div class="tablecell ratio3">
+                                                                <h4 data-bind="text: $data.Journal.JournalId"></h4>
+                                                            </div>
+                                                            <div class="tablecell ratio7">
+                                                                <h4 data-bind="text: $data.Journal.Description"></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="height500" data-bind="visible: page2Visible">
+                                    <div>
+
+                                        <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                            <h3 class="secondaryFontColor">
+                                                <!-- ko text: _context.resources.getString('JOURNAL_ID') --><!-- /ko -->: <!-- ko text: viewModel.selectedJournalID --><!-- /ko -->
+                                            </h3>
+                                        </div>
+
+                                        <div class="marginTop8 padRight12">
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: _context.resources.getString('CALCULATION_MODE')"></h3>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="0" data-bind="checked: viewModel.selectedCMValue" />
+                                                    <!-- ko text: _context.resources.getString('CALC_MODE_DEFAULF') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="1" data-bind="checked: viewModel.selectedCMValue" />
+                                                    <!-- ko text: _context.resources.getString('CALC_MODE_EMPTY') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="2" data-bind="checked: viewModel.selectedCMValue" />
+                                                    <!-- ko text: _context.resources.getString('CALC_MODE_NEGATIVE') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="marginTop8 padRight12">
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: _context.resources.getString('LOCATION_MODE')"></h3>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="0" data-bind="checked: viewModel.selectedLMValue" />
+                                                    <!-- ko text: _context.resources.getString('LOC_MODE_STORE') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="1" data-bind="checked: viewModel.selectedLMValue" />
+                                                    <!-- ko text: _context.resources.getString('LOC_MODE_SECTION') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label>
+                                                    <input type="radio" class="marginRight4" value="2" data-bind="checked: viewModel.selectedLMValue" />
+                                                    <!-- ko text: _context.resources.getString('LOC_MODE_SHELF') --><!-- /ko -->
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="buttonsContainer row marginTop12 marginBottom8">
+                                <div class="col buttonContainer blockWidth"></div>
+                                <div class="buttonContainer col no-shrink">
+                                    <button type="button" class="stretch primaryButton"
+                                            data-bind="click: CancelDialogHandler, resx: { ariaLabel: 'string_76' }">
+                                        <span data-bind="text: _context.resources.getString('CANCEL_BUTTON')"></span>
+                                    </button>
+                                </div>
+                                <div class="col width4"></div>
+                                <div class="buttonContainer col no-shrink">
+                                    <button type="button" class="stretch primaryButton"
+                                            data-bind="click: BackHandler, enable: btnBackEnable, resx: { ariaLabel: 'string_49' }, css: { secondaryButton: !btnBackEnable() }">
+                                        <span data-bind="text: _context.resources.getString('BACK_BUTTON')"></span>
+                                    </button>
+                                </div>
+                                <div class="col width4"></div>
+                                <div class="buttonContainer col no-shrink">
+                                    <button type="button" class="stretch primaryButton"
+                                            data-bind="click: NextHandler, enable: btnNextEnable, resx: { ariaLabel: 'string_1448' }, css: { secondaryButton: !btnNextEnable() }">
+                                        <span data-bind="text: _context.resources.getString('NEXT_BUTTON')"></span>
+                                    </button>
+                                </div>
+                                <div class="col width4"></div>
+                                <div class="buttonContainer col no-shrink">
+                                    <button type="button" class="stretch primaryButton"
+                                            data-bind="click: OkDialogHandler, resx: { ariaLabel: 'string_75' }, enable: btnOKEnable, css: { secondaryButton: !btnOKEnable() }">
+                                        <span data-bind="text: _context.resources.getString('OK_BUTTON')"></span>
+                                    </button>
+                                </div>
+                                <div class="col"></div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

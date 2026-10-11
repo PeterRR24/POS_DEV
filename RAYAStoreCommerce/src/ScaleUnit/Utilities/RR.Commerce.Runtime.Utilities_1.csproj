@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CustomizationPackage.props" />
+  <Import Condition=" '$(EAZFUSCATOR_NET_HOME)' != '' and Exists('$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets') " Project="$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RR.Commerce.Runtime.Utilities</AssemblyName>
+    <RootNamespace>RR.Commerce.Runtime.Utilities</RootNamespace>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
+    <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
+    <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
+    <EazfuscatorCompatibilityVersion>2020.4</EazfuscatorCompatibilityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="DefinePosExtensionPackageTrigger.cs" />
+  </ItemGroup>
+
+   <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.Runtime" Version="$(CommerceSdkPackagesVersion)" />
+    <!--<PackageReference Include="Microsoft.Dynamics.Commerce.Runtime.Client" Version="$(ChannelRepoPackagesVersion)" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />-->
+  </ItemGroup>
+
+   <ItemGroup>
+     <Reference Include="RR.Retail.Security">
+       <HintPath>..\..\..\RR.Retail.Security.dll</HintPath>
+     </Reference>
+   </ItemGroup>
+
+</Project>

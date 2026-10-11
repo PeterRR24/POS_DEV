@@ -1,0 +1,4 @@
+﻿.journalEntryListContainer {
+    height: calc(-40px + 100%);
+    margin-bottom: 40px;
+}

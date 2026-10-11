@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Fintech</title>
+</head>
+
+<body>
+
+    <div class="grow col">
+
+        <!-- Provider -->
+
+        <div class="marginBottom20">
+
+            <div class="row marginBottom4">
+                <div class="h6 secondaryFontColor">
+                    Provider
+                </div>
+            </div>
+
+            <div class="row">
+
+                <select class="width280"
+                        data-bind="
+                        options: providerOptions,
+                        optionsText: 'Name',
+                        optionsValue: 'TenderTypeId',
+                        value: selectedProviderId,
+                        event: {
+                            change: function(data, event) {
+                                onProviderChanged(
+                                    event.target.value
+                                        ? parseInt(event.target.value, 10)
+                                        : undefined
+                                );
+                            }
+                        }">
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Period -->
+
+        <div class="marginBottom20">
+
+            <div class="row marginBottom4">
+                <div class="h6 secondaryFontColor">
+                    Period
+                </div>
+            </div>
+
+            <div class="row">
+
+                <select class="width280"
+                        data-bind="
+                        options: periodOptions,
+                        optionsText: function(plan) {
+                        return plan.Months + ' Months' ;
+                        },
+                        optionsValue: function(plan) {
+                        return plan;
+                        },
+                        value: selectedPeriod,
+                        event: {
+                        change: function(data, event) {
+                        var index=event.target.selectedIndex;
+                        if (index>
+                    = 0) {
+                    onPeriodChanged(
+                    periodOptions()[index]
+                    );
+                    }
+                    }
+                    }">
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Cash -->
+
+        <div class="marginBottom20">
+
+            <div class="row marginBottom4">
+                <div class="h6 secondaryFontColor">
+                    Cash
+                </div>
+            </div>
+
+            <div class="row">
+
+                <input class="width280"
+                       type="number"
+                       min="0"
+                       step="0.01"
+                       data-bind="
+                        value: cash,
+                        valueUpdate: 'input',
+                        event: {
+                            input: function(data, event) {
+                                onCashChanged(
+                                    event.target.value
+                                );
+                            }
+                        }" />
+
+            </div>
+
+        </div>
+
+
+        <!-- Total -->
+
+        <div class="marginBottom20">
+
+            <div class="row marginBottom4">
+                <div class="h6 secondaryFontColor">
+                    Total
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="h4 width280"
+                     data-bind="
+                        text: newTotal">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Monthly Payment -->
+
+        <div class="marginBottom20">
+
+            <div class="row marginBottom4">
+                <div class="h6 secondaryFontColor">
+                    Monthly Payment
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="h4 width280"
+                     data-bind="
+                        text: monthlyPayment">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Validation -->
+
+        <div class="marginBottom20"
+             data-bind="visible: validationMessage">
+
+            <div class="errorMessage"
+                 data-bind="text: validationMessage">
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

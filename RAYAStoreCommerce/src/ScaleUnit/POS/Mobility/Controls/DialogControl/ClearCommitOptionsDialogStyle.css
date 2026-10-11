@@ -1,0 +1,4 @@
+﻿
+.dialog-option input[type=radio] {
+    display: inline-block !important;
+}

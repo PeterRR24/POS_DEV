@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Quantity Count</title>
+    <link rel="stylesheet" href="CountingDialogStyles.min.css" />
+</head>
+<body>
+    <!-- HTMLLint Disable LabelExistsValidator -->
+    <div class="sampleExtension_dialogSample col grow">
+        <div class="marginTop12 marginBottom12" >
+            <h4 class="secondaryFontColor" data-bind="text: itemName"></h4>
+        </div>
+        <div class="marginTop12" data-bind="visible: isShowQty">
+            <div>
+                <h4 data-bind="text: context.resources.getString('COUNTING_DIALOG_ENTER_QUANTITY')"></h4>
+            </div>
+            <div>
+                <input id="txtQty" type="number" data-bind="value: quantity, valueUpdate: 'afterkeydown'" autofocus />
+            </div>
+        </div>        
+        <div class="marginTop12">
+            <h4 data-bind="text: context.resources.getString('COUNTING_DIALOG_ENTER_COMMENT')"></h4>
+        </div>
+        <div>
+            <textarea id="txtCmt" data-bind="value: comment, valueUpdate: 'afterkeydown'" rows="5"></textarea>
+        </div>
+        <div class="grow"></div>
+        
+    </div>
+</body>
+</html>

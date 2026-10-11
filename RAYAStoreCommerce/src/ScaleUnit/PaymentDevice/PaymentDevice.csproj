@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CustomizationPackage.props" />
+  <Import Condition=" '$(EAZFUSCATOR_NET_HOME)' != '' and Exists('$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets') " Project="$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets" />
+  <PropertyGroup>
+    <AssemblyName>RR.PaymentDeviceNBE</AssemblyName>
+    <RootNamespace>RR.PaymentDeviceNBE</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
+    <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
+    <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
+    <EazfuscatorCompatibilityVersion>2020.4</EazfuscatorCompatibilityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.HardwareAndPeripherals" Version="$(CommerceSdkPackagesVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RR.Dynamics.Retail.Payment.NBE">
+      <HintPath>..\NBE.Portable\bin\Debug\netstandard2.0\RR.Dynamics.Retail.Payment.NBE.dll</HintPath>
+    </Reference>
+    <Reference Include="RR.Utility">
+      <HintPath>..\NBE.Portable\RR.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--<Import Project="..\..\..\BuildTools\codeSign.props" />-->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!--<Exec Command="copy &quot;$(HwsPaymentDllRefPath)\BouncyCastle.dll&quot; &quot;$(TargetDir)&quot;" />-->
+    <!-- TriPOS -->
+    <!--<Exec Command="copy &quot;$(HwsPaymentDllRefPath)\SQLite.Interop.dll&quot; &quot;$(TargetDir)&quot;" />-->
+	  <!--<Exec Command="copy &quot;$(HwsPaymentDllRefPath)\Microsoft.Extensions.Primitives.dll&quot; &quot;$(TargetDir)&quot;" />-->
+    <!-- Pepper -->
+    <!--<Exec Command="copy &quot;$(HwsPaymentDllRefPath)\pepcore.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="copy &quot;$(HwsPaymentDllRefPath)\pepperc.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="copy &quot;$(HwsPaymentDllRefPath)\pepper_cardtypes.xml&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="copy &quot;$(HwsPaymentDllRefPath)\pepper_config.xml&quot; &quot;$(TargetDir)&quot;" />
+    --><!-- SensePass --><!--
+    <Exec Command="copy &quot;$(HwsPaymentDllRefPath)\RR.ScanQR.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="copy &quot;$(HwsPaymentDllRefPath)\Zxing.dll&quot; &quot;$(TargetDir)&quot;" />-->
+    
+  </Target>
+</Project>

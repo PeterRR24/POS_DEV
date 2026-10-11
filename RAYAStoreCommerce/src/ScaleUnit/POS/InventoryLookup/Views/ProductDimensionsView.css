@@ -1,0 +1,247 @@
+﻿
+.productdetails .extensionFullHeight,
+.productdetails .extensionFullHeight > div,
+.productdetails .extensionFullHeight > div > div {
+    height: 100% !important;
+}
+
+.productMatrix {
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.dimension-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex: 0 1 auto !important;
+    width: 100% !important;
+}
+
+.dimension-list {
+    max-height: none !important;
+    height: auto;
+}
+
+.overflowY {
+    overflow-y: auto !important;
+    margin-top: 15px;
+}
+
+.overflowX {
+    overflow-x: auto !important;
+}
+
+.direction-ltr {
+    direction: ltr;
+}
+
+.direction-rtl {
+    direction: rtl;
+}
+
+.dimension1Header {
+    line-height: 68px;
+    font-size: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    text-align: center;
+}
+
+.dimension2Header {
+    line-height: 4em;
+    font-size: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    text-align: center;
+}
+
+.dimension3Header, .dimension4Header {
+    width: auto;
+    font-size: 10px; /* Reset font size to base font size. */
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    text-align: right;
+    min-width: 148px !important;
+    max-width: 296px !important;
+    width: 100% !important;
+}
+
+.dimension1Header h4,
+.dimension2Header h4 {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+.buttonWidth80 {
+    width: 80px !important;
+    min-width: 80px !important;
+}
+
+.buttonHeight5 {
+    height: 5em !important;
+    min-height: 5em !important;
+}
+
+.buttonAllDimension {
+    min-width: 164px !important;
+    max-width: 296px !important;
+    width: 100% !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: rgb(241, 243, 245) !important;
+}
+
+.buttonDimension1 {
+    min-width: 144px !important;
+    width: 144px !important;
+    margin-right: 3px;
+    margin-top: 2px;
+}
+
+.dimension-1and2-container {
+    height: 70px;
+    min-height: 70px;
+}
+
+.dimensionName1 {
+    height: 50%;
+    width: 100%;
+    display: table;
+}
+
+    .dimensionName1 h4 {
+        vertical-align: bottom;
+        display: table-cell;
+    }
+
+.dimensionName2 {
+    height: 50%;
+    width: 100%;
+}
+
+.dimensionSetting {
+    height: 47px !important;
+    min-height: 47px !important;
+    font-size: 30px !important;
+    border: 2px solid !important;
+    width: 100% !important;
+}
+
+.dimensionFlyout {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    display: table;
+}
+
+.dimensionFlyoutContent {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    background-color: transparent !important;
+    width: 30% !important;
+}
+
+    .dimensionFlyoutContent .iconDown {
+        background-color: rgb(225, 227, 229);
+        color: #000 !important;
+        height: 50px !important;
+        min-height: 50px !important;
+    }
+
+    .dimensionFlyoutContent .Upbutton {
+        -webkit-transform: rotate(-180deg); /* Safari */
+        -moz-transform: rotate(-180deg); /* Firefox */
+        -ms-transform: rotate(-180deg); /* IE */
+        -o-transform: rotate(-180deg); /* Opera */
+        transform: rotate(-180deg); /* Internet Explorer */
+    }
+
+.dimensionContent {
+    height: auto !important;
+    padding: 50px !important;
+    display: inline-block !important;
+    padding-bottom:0.4em !important;
+}
+
+#dimensionNameList .win-itemsblock .win-container {
+    margin: 11px auto;
+    width: 90%;
+}
+
+#dimensionNameList .win-itemscontainer {
+    height: auto !important;
+    overflow: hidden;
+}
+
+#dimensionNameList .dimension-grid h4 {
+    vertical-align: middle;
+    line-height: 3em;
+    display: inline-block;
+    font-size: 1em !important;
+    padding: 0em 1em;
+}
+
+.dimensionOrderActionContainer {
+    margin-top: 0.5em;
+}
+
+    .dimensionOrderActionContainer button {
+        width: 50px !important;
+        background-color: rgb(225, 227, 229);
+    }
+
+    .dimensionOrderActionContainer .iconAccept{
+        margin-right:2.5px;
+    }
+     .dimensionOrderActionContainer .iconCancel{
+        margin-left:2.5px;
+    }
+
+#dimensionNameList .cursorMovingItem {
+    cursor: pointer;
+}
+
+.productdetails .redColor {
+    color: red !important;
+}
+
+.buttonsContainer .highlightSelected {
+    border-style: ridge !important;
+    border-width: 1px !important;
+}
+
+.buttonsContainer .highlightSelected-thickBorder {
+    border-style: ridge !important;
+    border-width: 2px !important;
+    border-color: #000000 !important;
+    min-width: 162px !important;
+    max-width: 294px !important;
+    width: 100% !important;
+}
+
+#alternateDimensionFlyout {
+    margin: 10px !important;
+    padding: 5px !important;
+}
+
+.productdetails section {
+    padding-bottom: 40px;
+}
+
+.dimension-grid .slashBackground {
+    background: -webkit-repeating-linear-gradient(135deg, #f1f1f1, #f1f1f1 2px, rgba(255,255,255,0.9) 1px, rgba(255,255,255,0.9) 8px);
+    background: repeating-linear-gradient(-45deg, #f1f1f1, #f1f1f1 2px, rgba(255,255,255,0.9) 1px, rgba(255,255,255,0.9) 8px);
+}

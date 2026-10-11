@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Item store location</title>
+    <link href="ItemStoreLocationView.css" rel="stylesheet" />
+</head>
+<body>
+   
+    <div>
+        
+        <div class="fragment searchView">
+            
+            <div class="height100Percent row">
+                <div class="col height100Percent width15Percent">
+                    <div class="category-tree height100Percent pad16 scroll marginBottom44">
+                        <ul class="rootCategory" data-bind='foreach: viewModel.locationTree'>
+                            
+                            <li class="product">
+                                <label class="pad02" data-bind="attr: { id: SectionId }, text: SectionId"></label>
+                                <ul class="category" data-bind='foreach: shelves'>
+                                    <li class="product">
+                                        <label class="pad02" data-bind="attr: { id: ShelfId }, text: ShelfId, click: $root.LocationClickHandler.bind($data, $root)"></label>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col grow height100Percent marginBottom44">
+
+                    <div id="listItemStoreLocation"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.props" />
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.settings" />
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>$(AssemblyNamePrefix).Retail.Connector.FunctionalTests</AssemblyName>
+    <RootNamespace>Contoso.Retail.Connector.FunctionalTests</RootNamespace>
+    <ShippingSourceCode>true</ShippingSourceCode>
+    <IgnoreAssemblyDuringSdkGeneration>true</IgnoreAssemblyDuringSdkGeneration>
+    <DefaultLanguage>en-US</DefaultLanguage>
+  </PropertyGroup>
+  <ItemGroup>
+    <PortableConnector Include="$(OutputPath)Microsoft.Dynamics.Retail.TestConnector.Portable.dll" />
+    <DesktopConnector Include="$(OutputPath)Microsoft.Dynamics.Retail.TestConnector.dll" />
+  </ItemGroup>
+  <Target Name="CopyTestConnectors" AfterTargets="AfterBuild">
+    <MakeDir Directories="$(OutputPath)Connectors.Portable" />
+    <MakeDir Directories="$(OutputPath)Connectors.Desktop" />
+    <Copy SourceFiles="@(PortableConnector)" DestinationFolder="$(OutputPath)Connectors.Portable" />
+    <Copy SourceFiles="@(DesktopConnector)" DestinationFolder="$(OutputPath)Connectors.Desktop" />
+  </Target>
+  <Target Name="RemoveConnectors" AfterTargets="CopyTestConnectors">
+    <Delete Files="@(PortableConnector)" />
+    <Delete Files="@(DesktopConnector)" />
+  </Target>
+  <ItemGroup>
+    <Content Include="TestData\*.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="System.Composition" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Diagnostics" Version="$(DiagnosticsRepoPackagesVersion)" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.PaymentSDK.Extensions" Version="$(PaymentsRepoPackagesVersion)" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.SDKManager.Portable" Version="$(PaymentsRepoPackagesVersion)" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.TestConnector" Version="$(PaymentsRepoPackagesVersion)" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Tests.Utilities" Version="$(ToolsRepoPackagesVersion)" />
+  </ItemGroup>
+  <Import Project="$(SdkRootPath)\BuildTools\Microsoft.Dynamics.RetailSdk.Build.targets" />
+</Project>

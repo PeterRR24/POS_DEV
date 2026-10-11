@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CustomizationPackage.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <KnockoutjsFile>Libraries/knockout.js</KnockoutjsFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Libraries\**" />
+    <Content Remove="Libraries\**" />
+    <EmbeddedResource Remove="Libraries\**" />
+    <TypeScriptCompile Remove="Libraries\**" />
+  </ItemGroup>
+	<ItemGroup>
+		<Content Include="devDependencies\pos-tsconfig-base.json" />
+		<Content Include="devDependencies\schemas\cultureInfoSchema.json" />
+		<Content Include="devDependencies\schemas\manifestSchema.json" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.Pos" Version="$(CommerceSdkPackagesVersion)" />
+	  <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.6.2">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+
+	  <PackageReference Include="knockoutjs" Version="3.5.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataService\" />
+    <Folder Include="RRV1Modifcation\Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InventoryLookup\Controls\DialogControl\MessageDialog.js" />
+    <None Include="InventoryLookup\Controls\DialogControl\MessageDialog.js.map" />
+    <None Include="InventoryLookup\DataService\DataServiceEntities.g.js" />
+    <None Include="InventoryLookup\DataService\DataServiceEntities.g.js.map" />
+    <None Include="InventoryLookup\DataService\DataServiceRequests.g.js" />
+    <None Include="InventoryLookup\DataService\DataServiceRequests.g.js.map" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpReqFactory.js" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpReqFactory.js.map" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpReqHandler.js" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpReqHandler.js.map" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpRequest.js" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpRequest.js.map" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpResponse.js" />
+    <None Include="InventoryLookup\Operations\InventoryLookup\ProdSrchOpResponse.js.map" />
+    <None Include="InventoryLookup\Views\ProductDimensionsView.js" />
+    <None Include="InventoryLookup\Views\ProductDimensionsView.js.map" />
+    <None Include="InventoryLookup\Views\ProductDimensionsViewModel.js" />
+    <None Include="InventoryLookup\Views\ProductDimensionsViewModel.js.map" />
+    <None Include="InventoryLookup\Views\ProductSearchView.js" />
+    <None Include="InventoryLookup\Views\ProductSearchView.js.map" />
+    <None Include="InventoryLookup\Views\ProductSearchViewModel.js" />
+    <None Include="InventoryLookup\Views\ProductSearchViewModel.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommerceRuntime\RAYACommerce.CommerceRuntime.csproj" />
+  </ItemGroup>
+
+  
+	<Target Name="ContentIncludeKnockoutLibrary" BeforeTargets="AssignTargetPaths" DependsOnTargets="RunResolvePackageDependencies">
+		<PropertyGroup>
+			<KnockoutjsFile>Libraries/knockout.js</KnockoutjsFile>
+			<KnockoutLibraryFilePath Condition="'%(PackageDefinitions.Name)' == 'knockoutjs'">%(PackageDefinitions.ResolvedPath)\Content\Scripts\knockout-%(PackageDefinitions.Version).js</KnockoutLibraryFilePath>
+		</PropertyGroup>
+		<Copy SourceFiles="$(KnockoutLibraryFilePath)" DestinationFiles="$(KnockoutjsFile)" SkipUnchangedFiles="true" />
+		<!-- Necessary for CPOS -->
+		<ItemGroup>
+			<Content Include="$(KnockoutjsFile)"></Content>
+		</ItemGroup>
+	</Target>
+</Project>

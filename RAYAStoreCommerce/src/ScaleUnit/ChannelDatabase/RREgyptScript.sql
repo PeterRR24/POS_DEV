@@ -1,0 +1,205 @@
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'ext')
+BEGIN
+EXEC('CREATE SCHEMA ext')
+END
+
+GO
+
+---
+--- Standard
+-------- RETAILTRANSACTIONTABLE
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','UUID') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD UUID nvarchar(250) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','PREVIOUSUUID') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD PREVIOUSUUID nvarchar(250) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','REFERENCEUUID') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD REFERENCEUUID nvarchar(250) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','DEVSERIALNUMBER') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD DEVSERIALNUMBER nvarchar(100) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','RECEIPT_URL') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD RECEIPT_URL nvarchar(max) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','ReceiptIsResend') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD ReceiptIsResend int DEFAULT ((0)) NOT NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','Receipt_Status') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD Receipt_Status int DEFAULT ((0)) NOT NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','Receipt_DateTime') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD Receipt_DateTime nvarchar(50) NULL
+--END
+
+--IF COL_LENGTH('ax.RETAILTRANSACTIONTABLE','Json_Receipt') IS NULL
+--BEGIN
+--    ALTER TABLE ax.RETAILTRANSACTIONTABLE ADD Json_Receipt nvarchar(max) NULL
+--END
+
+----- LOGISTICSADDRESSSTATE
+--IF COL_LENGTH('ax.LOGISTICSADDRESSSTATE','OLD') IS NULL
+--BEGIN
+--    ALTER TABLE ax.LOGISTICSADDRESSSTATE ADD OLD int DEFAULT ((0)) NOT NULL
+--END
+
+----- LOGISTICSADDRESSCITY
+--IF COL_LENGTH('ax.LOGISTICSADDRESSCITY','OLD') IS NULL
+--BEGIN
+--    ALTER TABLE ax.LOGISTICSADDRESSCITY ADD OLD int DEFAULT ((0)) NOT NULL
+--END
+
+----- INVENTTABLE
+--IF COL_LENGTH('ax.INVENTTABLE','R_BRICKCODE') IS NULL
+--BEGIN
+--    ALTER TABLE ax.INVENTTABLE ADD R_BRICKCODE int DEFAULT ((0)) NOT NULL
+--END
+
+
+--- RETAILSEASONTABLE
+IF (SELECT OBJECT_ID('[ext].[E_INVOICE_TB]')) IS not NULL
+    DROP table [ext].[E_INVOICE_TB]
+GO
+
+CREATE TABLE [ext].[E_INVOICE_TB](
+	[BRICKCODE] [bigint] NOT NULL,
+	[STARTDATE] [datetime] NOT NULL,
+	[PORTALURL] [nvarchar](200) NOT NULL,
+	[DATAAREAID] [nvarchar](4) NOT NULL,
+	[PARTITION] [bigint] NOT NULL,
+	[RECID] [bigint] NOT NULL,
+	[RECVERSION] [int] NOT NULL,
+ CONSTRAINT [I_110437RECID] PRIMARY KEY CLUSTERED 
+(
+	[RECID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+GRANT SELECT, INSERT, UPDATE, DELETE ON [ext].[E_INVOICE_TB] TO DataSyncUsersRole
+GO
+
+
+
+IF OBJECT_ID('[ext].[E_Receipt_Update]', 'P') IS NULL
+BEGIN
+    EXEC('CREATE PROCEDURE [ext].[E_Receipt_Update] AS BEGIN SET NOCOUNT ON; END')
+END
+GO
+
+ALTER PROCEDURE [ext].[E_Receipt_Update]
+    @nvc_UUID NVARCHAR(250),
+    @nvc_PREVIOUSUUID NVARCHAR(250),
+    @nvc_REFERENCEUUID NVARCHAR(250),
+    @nvc_DEVSERIALNUMBER NVARCHAR(100),
+    @nvc_Receipt_URL NVARCHAR(1000),
+    @nvc_TransactionId NVARCHAR(100),
+    @nvc_Receipt_DateTime NVARCHAR(100),
+    @nvc_ReceiptIsResend int,
+    @nvc_Receipt_Status int,
+    @nvc_Json_Receipt NVARCHAR(max) NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    UPDATE [ax].[RETAILTRANSACTIONTABLE]
+    SET
+        UUID = @nvc_UUID,
+        PREVIOUSUUID = @nvc_PREVIOUSUUID,
+        REFERENCEUUID = @nvc_REFERENCEUUID,
+        DEVSERIALNUMBER = @nvc_DEVSERIALNUMBER,
+        RECEIPT_URL = @nvc_Receipt_URL,
+        ReceiptIsResend = @nvc_ReceiptIsResend,
+        Receipt_Status = @nvc_Receipt_Status,
+        Receipt_DateTime = @nvc_Receipt_DateTime,
+        Json_Receipt = @nvc_Json_Receipt
+    WHERE TRANSACTIONID = @nvc_TransactionId;
+END;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON [ext].[E_Receipt_Update] TO DataSyncUsersRole
+GO
+
+
+IF (SELECT OBJECT_ID('[ext].[RR_RECEIPTS_BK_TB]')) IS not NULL
+    DROP table [ext].[RR_RECEIPTS_BK_TB]
+GO
+
+CREATE TABLE [ext].[RR_RECEIPTS_BK_TB](
+	[TRANSACTIONID] [nvarchar](44) NULL,
+	[RECEIPTID] [nvarchar](18) NULL,
+	[STORE] [nvarchar](10) NULL,
+	[RECEIPT_URL] [nvarchar](1000) NULL,
+	[DEVSERIALNUMBER] [nvarchar](100) NULL,
+	[REFERENCEUUID] [nvarchar](250) NULL,
+	[PREVIOUSUUID] [nvarchar](250) NULL,
+	[UUID] [nvarchar](250) NULL,
+	[Json_Receipt] nvarchar(max) NULL,
+	[Receipt_DateTime] nvarchar(50),
+	[REPLICATIONCOUNTERFROMORIGIN] [int] IDENTITY(1,1) NOT NULL,
+	[ROWVERSION] [timestamp] NOT NULL,
+	[DATAAREAID] [nvarchar](4) NOT NULL
+) ON [PRIMARY]
+
+GO
+
+
+
+Create or Alter PROCEDURE [ext].[RR_RECEIPTS_BK_ST]
+    @nvc_UUID		   NVARCHAR(250),
+    @nvc_PREVIOUSUUID    NVARCHAR(250),
+    @nvc_REFERENCEUUID  NVARCHAR(250),
+    @nvc_DEVSERIALNUMBER  NVARCHAR(100),
+	@nvc_Receipt_URL  NVARCHAR(1000),
+    @nvc_TransactionId  NVARCHAR(40),
+	@nvc_ReceiptId  NVARCHAR(18),
+	@nvc_Store	 NVARCHAR(10),
+@nvc_Json_Receipt NVARCHAR(max),
+@nvc_DataAreaId  NVARCHAR(4),
+@nvc_Receipt_DateTime nvarchar(50)
+
+AS
+BEGIN
+    SET NOCOUNT ON
+    
+	IF Not EXISTS    
+    (
+    SELECT 1    
+    FROM [ext].[RR_RECEIPTS_BK_TB]    
+    WHERE [TRANSACTIONID] = @nvc_TransactionId  
+        AND [RECEIPTID] = @nvc_ReceiptId    
+    )    
+    BEGIN
+      
+				INSERT INTO [ext].[RR_RECEIPTS_BK_TB]
+           ([TRANSACTIONID]
+           ,[RECEIPTID]
+           ,[STORE]
+           ,[RECEIPT_URL]
+           ,[DEVSERIALNUMBER]
+           ,[REFERENCEUUID]
+           ,[PREVIOUSUUID]
+           ,[UUID],[Json_Receipt],[DataAreaId],[Receipt_DateTime])
+     VALUES
+           (@nvc_TransactionId,@nvc_ReceiptId,@nvc_Store,@nvc_Receipt_URL,@nvc_DEVSERIALNUMBER,@nvc_REFERENCEUUID,@nvc_PREVIOUSUUID,@nvc_UUID,@nvc_Json_Receipt,@nvc_DataAreaId,@nvc_Receipt_DateTime)
+        
+		 END
+   
+END;
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON [ext].[RR_RECEIPTS_BK_ST] TO DataSyncUsersRole

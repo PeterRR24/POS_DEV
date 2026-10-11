@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Condition=" '$(EAZFUSCATOR_NET_HOME)' != '' and Exists('$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets') " Project="$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets" />-->
+  <!--Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.props" />
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.settings" />
+  <Import Project="..\..\BuildTools\Common.props" />-->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RR.Dynamics.Retail.Payment.NBE</AssemblyName>
+    <RootNamespace>RR.Dynamics.Retail.Payment.NBE.Portable</RootNamespace>
+    <IgnoreAssemblyDuringSdkGeneration>true</IgnoreAssemblyDuringSdkGeneration>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
+    <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
+    <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
+    <EazfuscatorCompatibilityVersion>2020.4</EazfuscatorCompatibilityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="License\**" />
+    <EmbeddedResource Remove="License\**" />
+    <None Remove="License\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.PaymentSDK.Portable" Version="10.53.25083.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Utility\bin\Debug\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RR.Utility">
+      <HintPath>RR.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--<Import Project="..\..\BuildTools\RR.Microsoft.Dynamics.RetailSdk.Build.targets" />-->
+  <PropertyGroup>
+    <WindowsKitsRoot>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot10', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot81', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <SignToolPath Condition=" '$(SignToolPath)' == '' And '$(Platform)' == 'AnyCPU' ">$(WindowsKitsRoot)bin\x86\</SignToolPath>
+    <SignToolPath Condition="'$(SignToolPath)' == ''">$(WindowsKitsRoot)bin\$(Platform)\</SignToolPath>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="if /I &quot;$(ConfigurationName)&quot; == &quot;Release&quot; &quot;$(SignToolPath)signtool.exe&quot; sign /tr http://timestamp.sectigo.com /td sha256 /fd sha256 /a &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

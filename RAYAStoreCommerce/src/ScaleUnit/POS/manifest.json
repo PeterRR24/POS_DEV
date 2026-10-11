@@ -1,0 +1,214 @@
+﻿{
+  "$schema": "./devDependencies/schemas/manifestSchema.json",
+  "name": "RAYACommerce",
+  "publisher": "Retail Realm",
+  "version": "2.0.0",
+  "minimumPosVersion": "9.49.24146.2",
+  "dependencies": [
+    {
+      "alias": "knockout",
+      "format": "amd",
+      "modulePath": "Libraries/knockout"
+    }
+  ],
+  "description": "All Raya Customization",
+  "components": {
+    "resources": {
+      "supportedUICultures": [ "en-US" ],
+      "fallbackUICulture": "en-US",
+      "culturesDirectoryPath": "Resources/Strings",
+      "stringResourcesFileName": "resources.resjson"
+    },
+    "extend": {
+      "triggers": [
+        
+        {
+          "triggerType": "PreSaveCustomerAddress",
+          "modulePath": "RR_POS_Dev/AddressAddEdit/PreSaveCustomerAddressTrigger"
+        },
+        {
+          "triggerType": "PostSetQuantity",
+          "modulePath": "RRV1Modifcation/TriggerHandlers/PostSetQuantityTrigger"
+        },
+        {
+          "triggerType": "PreSetQuantity",
+          "modulePath": "RRV1Modifcation/TriggerHandlers/PreSetQuantityTrigger"
+        },
+        {
+          "triggerType": "PostProductSale",
+          "modulePath": "InventoryLookup/TriggerHandlers/PostProductSaleTrigger"
+        },
+        {
+          "triggerType": "PostSetQuantity",
+          "modulePath": "InventoryLookup/TriggerHandlers/PostSetQuantityTrigger"
+        },
+        {
+          "triggerType": "PreSetQuantity",
+          "modulePath": "InventoryLookup/TriggerHandlers/PreSetQuantityTrigger"
+        },
+        {
+          "triggerType": "PostPayment",
+          "modulePath": "InventoryLookup/TriggerHandlers/PostPaymentTrigger"
+        },
+        {
+          "triggerType": "PreVoidProducts",
+          "modulePath": "InventoryLookup/TriggerHandlers/PreVoidProductsTrigger"
+        },
+        {
+          "triggerType": "PrePayment",
+          "modulePath": "InventoryLookup/TriggerHandlers/PrePaymentTrigger"
+        },
+        {
+          "triggerType": "PostLogOn",
+          "modulePath": "InventoryLookup/TriggerHandlers/PostLogOnTrigger"
+        },
+        {
+          "triggerType": "PostRecallTransaction",
+          "modulePath": "InventoryLookup/TriggerHandlers/PostRecallTransactionTrigger"
+        }
+      ],
+      "views": {
+        "SimpleProductDetailsView": {
+          "appBarCommands": [
+            { "modulePath": "Labels/ViewExtensions/SimpleProductDetailsView/PrintLabelCommand" }
+          ]
+        },
+        "SearchOrdersView": {
+          "ordersListConfiguration": { "modulePath": "RRV1Modifcation/SearchOrders/CustomOrdersListColumns" }
+        },
+        "PickingAndReceivingDetailsView": {
+          "orderLinesListConfiguration": { "modulePath": "RRV1Modifcation/PickingAndReceivingDetails/CustomOrderLinesListColumns" }
+        },
+        "SearchView": {
+          "productListConfiguration": { "modulePath": "RRV1Modifcation/SearchOrders/CustomProductSearchColumns" }
+        },
+
+        "AddressAddEditView": {
+          "controlsConfig": {
+            "customControls": [
+              {
+                "controlName": "addressAddEditCustomFieldsSection",
+                "htmlPath": "RR_POS_Dev/AddressAddEdit/AddressAddEditCustomFieldsSection.html",
+                "modulePath": "RR_POS_Dev/AddressAddEdit/AddressAddEditCustomFieldsSection"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "create": {
+      "templatedDialogs": [
+        {
+          "htmlPath": "Labels/Controls/DialogControl/AddLabelDialog.html",
+          "modulePath": "Labels/Controls/DialogControl/AddLabelDialogModule"
+        },
+        {
+          "htmlPath": "Labels/Controls/DialogControl/ConfirmMessageDialog.html",
+          "modulePath": "Labels/Controls/DialogControl/ConfirmMessageDialogModule"
+        },
+        {
+          "htmlPath": "Mobility/Controls/DialogControl/CountingDialog.html",
+          "modulePath": "Mobility/Controls/DialogControl/CountingDialogModule"
+        },
+        {
+          "htmlPath": "Mobility/Controls/DialogControl/ConfirmMessageDialog.html",
+          "modulePath": "Mobility/Controls/DialogControl/ConfirmMessageDialogModule"
+        },
+        {
+          "htmlPath": "Mobility/Controls/DialogControl/ClearCommitOptionsDialog.html",
+          "modulePath": "Mobility/Controls/DialogControl/ClearCommitOptionsDialogModule"
+        },
+        {
+          "htmlPath": "Mobility/Controls/DialogControl/ProcessingDialog.html",
+          "modulePath": "Mobility/Controls/DialogControl/ProcessingDialogModule"
+        },
+        {
+          "htmlPath": "RR_Fintech/Controls/DialogControl/FintechDialog.html",
+          "modulePath": "RR_Fintech/Controls/DialogControl/FintechDialog"
+        }
+      ],
+      "views": [
+        {
+          "title": "RR Label Wizard",
+          "pageName": "ItemLabelPrintWzrdView",
+          "phonePageName": "ItemLabelPrintWzrdView",
+          "viewDirectory": "Labels/Views/",
+          "viewControllerPath": "Labels/Views/ItemLabelPrintWzrdView"
+        },
+        {
+          "title": "Stock Take Journals",
+          "pageName": "StockTakeJournalsView",
+          "phonePageName": "StockTakeJournalsView",
+          "viewDirectory": "Mobility/Views/",
+          "viewControllerPath": "Mobility/Views/StockTakeJournalsView"
+        },
+        {
+          "title": "Stock Take Journal Transactions",
+          "pageName": "ScJournalTransactionsView",
+          "phonePageName": "ScJournalTransactionsView",
+          "viewDirectory": "Mobility/Views/",
+          "viewControllerPath": "Mobility/Views/ScJournalTransactionsView"
+        },
+        {
+          "title": "Stock Take Journal Entry",
+          "pageName": "ScJournalEntryView",
+          "phonePageName": "ScJournalEntryView",
+          "viewDirectory": "Mobility/Views/",
+          "viewControllerPath": "Mobility/Views/ScJournalEntryView"
+        },
+        {
+          "title": "Item store location",
+          "pageName": "ItemStoreLocationView",
+          "phonePageName": "ItemStoreLocationView",
+          "viewDirectory": "Mobility/Views/",
+          "viewControllerPath": "Mobility/Views/ItemStoreLocationView"
+        },
+        {
+          "title": "Product Search",
+          "pageName": "ProductSearchView",
+          "phonePageName": "ProductSearchView",
+          "viewDirectory": "InventoryLookup/Views/",
+          "viewControllerPath": "InventoryLookup/Views/ProductSearchView"
+        },
+        {
+          "title": "Product Dimensions",
+          "pageName": "ProductDimensionsView",
+          "phonePageName": "ProductDimensionsView",
+          "viewDirectory": "InventoryLookup/Views/",
+          "viewControllerPath": "InventoryLookup/Views/ProductDimensionsView"
+        }
+      ],
+      "operations": [
+        {
+          "operationId": "5000",
+          "operationRequestFactoryPath": "Labels/Operations/PrintLabel/PrintLabelOperationRequestFactory",
+          "operationRequestHandlerPath": "Labels/Operations/PrintLabel/PrintLabelOperationRequestHandler"
+        },
+        {
+          "operationId": "5050",
+          "operationRequestFactoryPath": "Mobility/Operations/StockTake/StockTakeOperationRequestFactory",
+          "operationRequestHandlerPath": "Mobility/Operations/StockTake/StockTakeOperationRequestHandler"
+        },
+        {
+          "operationId": "5051",
+          "operationRequestFactoryPath": "Mobility/Operations/Ranging/RangingOperationRequestFactory",
+          "operationRequestHandlerPath": "Mobility/Operations/Ranging/RangingOperationRequestHandler"
+        },
+        {
+          "operationId": "5052",
+          "operationRequestFactoryPath": "InventoryLookup/Operations/InventoryLookup/ProdSrchOpReqFactory",
+          "operationRequestHandlerPath": "InventoryLookup/Operations/InventoryLookup/ProdSrchOpReqHandler"
+        },
+        {
+          "operationId": "5010",
+          "operationRequestFactoryPath": "RR_Fintech/Operations/FintechOperationRequestFactory",
+          "operationRequestHandlerPath": "RR_Fintech/Operations/FintechOperationRequestHandler"
+        }
+      ]
+
+
+
+    }
+
+  }
+}

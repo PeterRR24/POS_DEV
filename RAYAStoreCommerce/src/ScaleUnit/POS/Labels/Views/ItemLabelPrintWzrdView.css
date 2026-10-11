@@ -1,0 +1,236 @@
+﻿
+.hiddne-element {
+    display:none;
+}
+
+.labelListContainer {
+    height: 100%;
+    /*height: calc(-40px + 100%);
+    margin-bottom: 40px;*/
+}
+
+.label-print-dialog {
+    height: 600px !important;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px !important;
+}
+
+.label-print-wizard-dialog {
+    height: 600px !important;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px !important;
+}
+
+.category-tree {
+    overflow-y: scroll;
+}
+
+.category {
+    margin: 0px;
+    list-style-type: circle;
+    cursor: pointer;
+}
+
+.product {
+    margin: 0px;
+    list-style-type: square;
+    cursor: pointer;
+}
+
+.rootCategory label {
+    display: inline-block;
+    width: auto;
+}
+
+#labelLoader.page-loader {
+    z-index:1025 !important;
+}
+
+.dialogContainer2 label {
+    margin-top: 0px !important;
+}
+
+.actionPanel .buttonContainer > button {
+    color: #ffffff;
+    display: inline-block;
+    padding: calc(1em/1.4 * 0.4) calc(1em/1.4 * 2);
+    text-align: center;
+    font-size: 1.4em;
+    border: calc(1em/1.4 * 0.2) solid #1D1D1D;
+    min-width: calc(1em/1.4 * 9);
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+}
+
+.actionPanel .buttonContainer > button:disabled,
+.actionPanel .buttonContainer > button.dialogPrimaryButton:disabled,
+.actionPanel .buttonContainer > button.dialogSecondaryButton:disabled {
+    background-color: #CCCCCC;
+    border-color: #999999;
+    color: #999999;
+}
+
+.actionPanel .buttonContainer > button.dialogSecondaryButton {
+    background-color: #a6a6a6;
+}
+
+.actionPanel .buttonContainer {
+    display: inline-block;
+    height: 4em;
+}
+
+.from-date, .to-date {
+    width: 35em !important;
+    min-width: 35em !important;
+    max-width: 35em !important;
+}
+
+#labelPrintWizard input[type=radio] {
+    display: inline-block !important;
+}
+
+.statisticList {
+    margin: 15px !important;
+}
+
+div.tableheaderrow {
+    width: 150px;
+}
+
+div.tablecell {
+    width: 150px;
+    display: block;
+}
+
+div.tablecell h4 {
+    margin-left: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+div.tablerow:hover {
+    background-color: green;
+    color: #fff;
+}
+.tablecell.width30,.tableheaderrow.width30{
+    width:30px;
+    max-width:30px;
+    min-width:30px;
+}
+.tablecell.width75,.tableheaderrow.width75{
+    width:75px;
+    max-width:75px;
+    min-width:75px;
+}
+.tablecell.width100,.tableheaderrow.width100{
+    width:100px;
+    max-width:100px;
+    min-width:100px;
+}
+div.first-col {
+    padding-left: 5px !important;
+    padding-right: 0px !important;
+}
+div.pad-left-right-zero {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+div.tablerow {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.clearButton {
+    min-height: 32px !important;
+    min-width: 28px !important;
+    padding: 0px 8px !important;
+    border-bottom-width: 1px !important;
+    border-left-width: 0px !important;
+    border-right-width: 1px !important;
+    border-top-width: 1px !important;
+}
+
+div.date-picker-panel {
+    /*border-style: groove;
+    padding: 8px;
+    width: 340px;*/    
+    margin-top: 4px;
+}
+
+div.date-picker-panel .win-datepicker-date {
+    border-width: 1px;
+    font-size: 14px;
+    height: 26px;
+    margin: 0px;
+    margin-right: 4px !important;
+    min-height: 26px;
+    min-width: 70px;
+    width: 70px;
+    padding: 0px;
+}
+
+div.date-picker-panel .win-datepicker-month {
+    border-width: 1px;
+    font-size: 14px;
+    height: 26px;
+    margin: 0px;
+    margin-right: 4px !important;
+    min-height: 26px;
+    min-width: 120px;
+    width: 120px;
+    padding: 0px;
+}
+
+div.date-picker-panel .win-datepicker-year {
+    border-width: 1px;
+    font-size: 14px;
+    height: 26px;
+    margin: 0px;
+    min-height: 26px;
+    min-width: 90px;
+    width: 90px;
+    padding: 0px;
+}
+
+.rotate-90 span.win-commandimage {
+    -webkit-transform: rotate(-90deg); /* Safari */
+    -moz-transform: rotate(-90deg); /* Firefox */
+    -ms-transform: rotate(-90deg); /* IE */
+    -o-transform: rotate(-90deg); /* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.iconImpExp:before { content: "\EE2F" }
+.win-appbar.dynamicsSymbolFont button.iconImpExp { width: auto; border-radius: 0 }
+.win-appbar.dynamicsSymbolFont button.iconImpExp:before { content: '' }
+.win-appbar.dynamicsSymbolFont button.iconImpExp .win-commandimage:before { content: "\EE2F" }
+
+/* NU 
+    *** CSS for printing DIV content ***
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14px;
+  }
+}
+*/

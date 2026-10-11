@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <Import Project="..\CustomizationPackage.props" />
+
+  <PropertyGroup>
+    <OutputType>exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChannelDatabase\RAYACommerce.ChannelDatabase.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\CommerceRuntime\RAYACommerce.CommerceRuntime.csproj" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
+    <ProjectReference Include="..\POS\RAYACommerce.POS.csproj" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
+	  <ProjectReference Include="..\Mobility\RR.Commerce.Runtime.Mobility_1.csproj" />
+	  <ProjectReference Include="..\Printing\RR.Commerce.Runtime.Printing_1.csproj" />
+	  <ProjectReference Include="..\Reporting\RR.Commerce.Runtime.Reporting_1.csproj" />
+	  <ProjectReference Include="..\Utilities\RR.Commerce.Runtime.Utilities_1.csproj" />
+	  <ProjectReference Include="..\RetailServerLibrary\RR.Retail.RetailServerLibrary_1.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.Installers.ScaleUnit" Version="$(CommerceSdkPackagesVersion)" />
+	</ItemGroup>
+
+</Project>

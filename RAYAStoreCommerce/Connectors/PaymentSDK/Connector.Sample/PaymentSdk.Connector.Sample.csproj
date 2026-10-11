@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.props" />
+  <Import Project="..\..\BuildTools\Microsoft.Dynamics.RetailSdk.Build.settings" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>BanqueMisr</AssemblyName>
+    <RootNamespace>Contoso.Retail.SampleConnector.Portable</RootNamespace>
+    <ShippingSourceCode>true</ShippingSourceCode>
+    <IgnoreAssemblyDuringSdkGeneration>true</IgnoreAssemblyDuringSdkGeneration>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <Version>1.0.0</Version>
+    <PackageId>RR_Connector</PackageId>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Composition" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Diagnostics" Version="10.14.24269.1" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.PaymentSDK.Portable" Version="10.50.24292.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RRMiseCon">
+		<HintPath>C:\Users\localadmin\Desktop\RAYAStoreCommerce\Connectors\HardWareStation\Extension.PaymentSample\bin\Debug\net472\RRMiseCon.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <Import Project="$(SdkRootPath)\BuildTools\Microsoft.Dynamics.RetailSdk.Build.targets" />
+</Project>

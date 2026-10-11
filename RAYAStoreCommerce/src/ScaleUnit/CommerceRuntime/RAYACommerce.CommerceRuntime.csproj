@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CustomizationPackage.props" />
+
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Runtime.Localization.Services.Messages" Version="9.50.24240.4" />
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.Runtime" Version="$(CommerceSdkPackagesVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Messages\" />
+    <Folder Include="RequestHandlers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NBE.Portable\NBE.Portable.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="E_Receipt_DLL">
+      <HintPath>..\E_Receipt_DLL.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder">
+      <HintPath>..\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="RRMiseCon">
+      <HintPath>..\..\..\..\..\..\..\Dynamics365Commerce.InStore-release-9.50\src\HardwareStationSamples\PaymentDevice\bin\Debug\netstandard2.0\RRMiseCon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

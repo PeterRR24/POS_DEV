@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>RR Labels View</title>
+    <link href="ItemLabelPrintWzrdView.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div>
+        <div class="fragment searchView">
+
+            <div class="row marginBottom4 gridHeader">
+                <div class="row">
+                    <form>
+                        <div class="search-wrapper row marginTop4 marginLeft8">
+                            <input class="noPad margin0 ratio height40 splitViewSearchText" style="padding-right: 8px; padding-left: 8px;"
+                                   data-bind="value: viewModel.searchText, valueUpdate: 'afterkeydown'"
+                                   aria-label="Search" type="search" maxlength="30" autocomplete="off">
+                            <button class="searchButton iconSearch margin0 height40 splitViewSearchButton padRight8" aria-label="Search"
+                                    type="submit" data-bind="click: searchClickHandler"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="grow"></div>
+                <div>
+                    <div class="row marginTop4 marginRight16">
+                        <h4 class="width72 padTop8" data-bind="text: context.resources.getString('LABEL_TYPE')"></h4>
+                        <select class="width100" data-bind="options: arrLabelTypes,
+                                optionsText: 'LabelType', optionsValue: 'Value', value: viewModel.labelType"></select>
+                    </div>
+                </div>
+                <div class="col width4"></div>
+                <div style="display: none">
+                    <div class="row marginTop4 marginRight20">
+                        <h4 class="width72 padTop8" data-bind="text: context.resources.getString('LABEL_CODE')"></h4>
+                        <select data-bind="options: viewModel.labelCodes,
+                            optionsText: function(item) { return item.Code + ' : ' + item.Description },
+                            value: viewModel.selectedLC, optionsCaption: context.resources.getString('OPTIONS_CAPTION_TEXT')"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="height100Percent">
+                <div class="col grow labelListContainer">
+
+                    <div id="labelitemsview"></div>
+
+                </div>
+
+                <div id="labelPrintDialog" class="commerceDialog label-print-dialog" data-bind="visible: viewModel.printStatDialog()">
+                    <div class="modal-backdrop"></div>
+                    <div class="dialogContainer centerY">
+                        <div class="dialogContainer2 row">
+                            <div class="col grow marginTop20"></div>
+                            <div class="col grow marginTop0 width100Percent">
+
+                                <div class="row no-shrink dialogTitlePlacehoder">
+                                    <div class="marginTop0 padTop4 padRight12 padLeft12">
+                                        <h2 class="title" data-bind="text: context.resources.getString('LABEL_PRINT_STATISTICS')"></h2>
+                                    </div>
+                                </div>
+
+                                <form class="col grow padLeft12 padRight12 padTop4 padBottom2" autocomplete="off">
+                                    <div class="row">
+                                        <div class="col width4"></div>
+
+                                        <div class="col width200">
+                                            <div class="width200 height500">
+                                                <img class="width200 height500" src="../Assets/LabelPrintWizard.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col width620" style="background:#F1F3F5">
+                                            <div class="height500">
+                                                <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                    <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('SELECT_LABEL_PRINT_LAYOUT')"></h3>
+                                                </div>
+                                                <div class="col grow overflowYVisible">
+                                                    <div class="standardGrid statisticList">
+                                                        <div class="listViewHeader">
+                                                            <div class="tableheaderrow width30 first-col">
+                                                                <input type="checkbox" data-bind="click: selectAllStatistics" />
+                                                            </div>
+                                                            <div class="tableheaderrow width75 pad-left-right-zero">
+                                                                <h6 data-bind="text: context.resources.getString('LAYOUT_ID')"></h6>
+                                                            </div>
+                                                            <div class="tableheaderrow pad-left-right-zero">
+                                                                <h6 data-bind="text: context.resources.getString('LAYOUT_NAME')"></h6>
+                                                            </div>
+                                                            <div class="tableheaderrow pad-left-right-zero">
+                                                                <h6 data-bind="text: context.resources.getString('PRINTER_NAME')"></h6>
+                                                            </div>
+                                                            <div class="tableheaderrow pad-left-right-zero">
+                                                                <h6 data-bind="text: context.resources.getString('LAYOUT_ERROR_TEXT')"></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div data-bind='foreach: viewModel.labelItemStatistics()'>
+                                                            <div class="listViewLine tablerow">
+                                                                <div class="tablecell width30 first-col">
+                                                                    <input type="checkbox" data-bind="checked: $data.IsSelect, enable: $data.IsEnable" />
+                                                                </div>
+                                                                <div class="tablecell width75 pad-left-right-zero">
+                                                                    <h4 data-bind="text: $data.statistic.LayoutId, attr: {title: $data.statistic.LayoutId}"></h4>
+                                                                </div>
+                                                                <div class="tablecell pad-left-right-zero">
+                                                                    <h4 data-bind="text: $data.statistic.LayoutName, attr: {title: $data.statistic.LayoutName}"></h4>
+                                                                </div>
+                                                                <div class="tablecell pad-left-right-zero">
+                                                                    <h4 data-bind="text: $data.statistic.PrinterName, attr: {title: $data.statistic.PrinterName}"></h4>
+                                                                </div>
+                                                                <div class="tablecell pad-left-right-zero">
+                                                                    <h4 data-bind="text: $data.statistic.ErrorText, attr: {title: $data.statistic.ErrorText}"></h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="buttonsContainer row marginTop12 marginBottom8">
+                                        <div class="col buttonContainer blockWidth"></div>
+                                        <div class="buttonContainer col no-shrink">
+                                            <button type="button" class="stretch primaryButton"
+                                                    data-bind="click: CancelPrintHandler, enable: viewModel.enablePrintCancel(), resx: { ariaLabel: 'string_76' }">
+                                                <span data-bind="text: context.resources.getString('CANCEL_BUTTON_TEXT')"></span>
+                                            </button>
+                                        </div>
+                                        <div class="col width4"></div>
+                                        <div class="buttonContainer col no-shrink">
+                                            <button type="button" class="stretch primaryButton"
+                                                    data-bind="click: OkPrintHandler, enable: viewModel.enablePrintOk(), resx: { ariaLabel: 'string_75' }">
+                                                <span data-bind="text: context.resources.getString('OK_BUTTON_TEXT')"></span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hiddne-element">
+                <input type="file" id="barCodeFilePath" data-bind="event: { change: FileDialogHandler }" accept="text/plain" />
+            </div>
+
+        </div>
+
+        <div id="labelPrintWizard" class="commerceDialog label-print-wizard-dialog" data-bind="visible: isShowWizard()">
+
+            <div class="modal-backdrop"></div>
+            <div class="dialogContainer centerY">
+                <div class="dialogContainer2 row">
+                    <div class="col grow marginTop20"></div>
+                    <div class="col grow marginTop0 width100Percent">
+
+                        <div class="row no-shrink dialogTitlePlacehoder">
+                            <div class="marginTop0 padTop4 padRight12 padLeft12">
+                                <h2 class="title" data-bind="text: context.resources.getString('PRINT_ITEM_LABEL_WIZARD')"></h2>
+                            </div>
+                        </div>
+
+                        <form class="col grow padLeft12 padRight12 padTop4 padBottom2" autocomplete="off">
+
+                            <div class="row">
+
+                                <div class="col width4"></div>
+                                <div class="col width200">
+                                    <div class="width200 height500">
+                                        <img class="width200 height500" src="../Assets/LabelPrintWizard.png" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col">
+
+                                    <div class="height500" data-bind="visible: page0Visible()">
+                                        <div>
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('SELECT_ITEM_LABEL_TYPE')"></h3>
+                                            </div>
+                                            <div class="grow">
+                                                <div class="row padLeft12 marginTop8">
+                                                    <label>
+                                                        <input type="radio" class="marginRight4" value="1" data-bind="checked: viewModel.labelType" />
+                                                        <!--ko text: context.resources.getString('PRODUCT_LABEL') --><!--/ko-->
+                                                    </label>
+                                                </div>
+                                                <div class="row padLeft12 marginTop8">
+                                                    <label>
+                                                        <input type="radio" class="marginRight4" value="0" data-bind="checked: viewModel.labelType" />
+                                                        <!--ko text: context.resources.getString('SHELF_LABEL') --><!--/ko-->
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('LABEL_CODE')"></h3>
+                                            </div>
+                                            <div class="row marginTop8 padLeft12">
+                                                <select data-bind="options: viewModel.labelCodes,
+                                               optionsText: function(item) { return item.Code + ' : ' + item.Description },
+                                               value: viewModel.selectedLC, optionsCaption: context.resources.getString('OPTIONS_CAPTION_TEXT')"></select>
+                                            </div>
+
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('PRICE_DATE')"></h3>
+                                            </div>
+                                            <div class="grow"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="padLeft12 padRight12" style="display: block;" data-bind="visible: !page0Visible()">
+                                            <div class="row">
+                                                <div class="row">
+                                                    <h4 class="secondaryFontColor marginRight4" data-bind="text: context.resources.getString('LABEL_TYPE')"></h4>
+                                                    <select class="width92 height24" data-bind="options: arrLabelTypes,
+                                                    optionsText: 'LabelType', optionsValue: 'Value', value: viewModel.labelType"></select>
+                                                </div>
+                                                <div class="marginLeft8 row">
+                                                    <h4 class="secondaryFontColor marginRight4" data-bind="text: context.resources.getString('LABEL_CODE')"></h4>
+                                                    <select class="width152 height24" data-bind="options: viewModel.labelCodes,
+                                                    optionsText: function(item) { return item.Code + ' : ' + item.Description },
+                                                    value: viewModel.selectedLC, optionsCaption: context.resources.getString('OPTIONS_CAPTION_TEXT')"></select>
+                                                </div>
+                                            </div>
+                                            <div class="row marginTop8">
+                                                <h4 class="secondaryFontColor marginTop4 marginRight4" data-bind="text: context.resources.getString('PRICE_DATE')"></h4>
+                                                <div class="date-picker-panel">
+                                                    <div id="divPriceDate"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="height444 width460" data-bind="visible: page1Visible()">
+                                        <div data-bind="visible: viewModel.showWizard()">
+                                            <div class="padLeft12 padRight12 marginTop8" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('SELECT_ITEM_BY_HIERARCHY_OR_ITEM_FILTER')"></h3>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label><input type="radio" class="marginRight4" value="CategoryHierarchy" data-bind="checked: viewModel.selectedOptionValue" /><!--ko text: context.resources.getString('CATEGORY_HIERARCHY') --><!--/ko--></label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label><input type="radio" class="marginRight4" value="LocationHierarchy" data-bind="checked: viewModel.selectedOptionValue" /><!--ko text: context.resources.getString('LOCATION_HIERARCHY') --><!--/ko--></label>
+                                            </div>
+                                            <div class="row padLeft12 marginTop8">
+                                                <label><input type="radio" class="marginRight4" value="ItemFilter" data-bind="checked: viewModel.selectedOptionValue" /><!--ko text: context.resources.getString('ITEM_FILTER') --><!--/ko--></label>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="padLeft12 padRight12" data-bind="visible: !viewModel.showWizard()">
+                                                <div class="marginTop8">
+                                                    <h4 class="secondaryFontColor" data-bind="text: context.resources.getString('ITEM_BAR_CODE')"></h4>
+                                                    <input type="text" data-bind="value: viewModel.itemBarCode, valueUpdate: 'afterkeydown'" />
+                                                </div>
+                                                <div class="marginTop8">
+                                                    <h4 class="secondaryFontColor" data-bind="text: context.resources.getString('QUANTITY')"></h4>
+                                                    <input type="text" data-bind="value: viewModel.barCodeLabelQuantity, valueUpdate: 'afterkeydown'" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="margin12">
+                                            <h4 class="secondaryFontColor" data-bind="text: viewModel.barCodeNotFoundMsg"></h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="height444 width460" data-bind="visible: page2Visible()">
+
+                                        <div data-bind="visible: isTree()">
+                                            <div class="padLeft12 marginBottom4 marginTop4">
+                                                <label data-bind="text: context.resources.getString('TREE_NOTE')"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="category-tree height440 padLeft12 marginTop8" data-bind="visible: isProductHierarchy()">
+                                            <ul class="rootCategory" data-bind='foreach: viewModel.categoryTree'>
+                                                <li>
+                                                    <!--<label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>-->
+                                                    <ul class="category" data-bind='foreach: children'>
+                                                        <li class="product">
+                                                            <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                            <ul class="category" data-bind='foreach: children'>
+                                                                <li class="product">
+                                                                    <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                    <ul class="category" data-bind='foreach: children'>
+                                                                        <li class="product">
+                                                                            <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                            <ul class="category" data-bind='foreach: children'>
+                                                                                <li class="product">
+                                                                                    <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                                    <ul class="category" data-bind='foreach: children'>
+                                                                                        <li class="product">
+                                                                                            <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                                            <ul class="category" data-bind='foreach: children'>
+                                                                                                <li class="product">
+                                                                                                    <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                                                    <ul class="category" data-bind='foreach: children'>
+                                                                                                        <li class="product">
+                                                                                                            <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                                                            <ul class="category" data-bind='foreach: children'>
+                                                                                                                <li class="product">
+                                                                                                                    <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+
+                                                                                                                    <ul class="category" data-bind='foreach: children'>
+                                                                                                                        <li class="product">
+                                                                                                                            <label class="pad02" data-bind="attr: { id: value.RecordId }, text: value.Name, event : { click: $root.SelectCatHandler.bind($data, $root), dblclick: $root.ToggleCatHandler.bind($data, $root) }"></label>
+                                                                                                                        </li>
+                                                                                                                    </ul>
+
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="category-tree height440 padLeft12 marginTop8" data-bind="visible: isLocationHierarchy()">
+                                            <!--<ul class="rootCategory" data-bind='foreach: viewModel.locationTree'>
+                                            <li>-->
+                                            <div class="rootCategory" data-bind='foreach: viewModel.locationTree'>
+                                                <!--<label class="pad02" data-bind="attr: { id: Id }, text: Name, event : { click: $root.SelectLocHandler.bind($data, $root), dblclick: $root.ToggleLocHandler.bind($data, $root) }"></label>-->
+                                                <ul class="category" data-bind='foreach: sections'>
+                                                    <li class="product">
+                                                        <label class="pad02" data-bind="attr: { id: SectionId }, text: SectionName, event : { click: $root.SelectLocHandler.bind($data, $root), dblclick: $root.ToggleLocHandler.bind($data, $root) }"></label>
+                                                        <ul class="category" data-bind='foreach: shelves'>
+                                                            <li class="product">
+                                                                <label class="pad02" data-bind="attr: { id: ShelfId }, text: ShelfId, event : { click: $root.SelectLocHandler.bind($data, $root), dblclick: $root.ToggleLocHandler.bind($data, $root) }"></label>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!--</li>
+                                        </ul>-->
+                                        </div>
+
+                                        <div data-bind="visible: isItemFilter()">
+                                            <div class="row padLeft12 marginTop12">
+                                                <div class="col no-shrink marginTop4">
+                                                    <label class="marginRight4" data-bind="text: context.resources.getString('LABEL_ITEM')"></label>
+                                                </div>
+                                                <div class="col no-shrink">
+                                                    <input type="text" class="width200 item-filter" data-bind="value: viewModel.itemFilterText, valueUpdate:'afterkeydown'" />
+                                                </div>
+                                                <div class="col"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="height444 width460" data-bind="visible: page3Visible()">
+                                        <div>
+                                            <div class="marginTop8 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('PRODUCT_FILTER')"></h3>
+                                            </div>
+                                            <div class="row marginTop8 padLeft12">
+                                                <label><input type="radio" class="marginRight4" value="None" data-bind="checked: viewModel.changeTracking" /><!--ko text: context.resources.getString('ALL_PRODUCTS') --><!--/ko--></label>
+                                            </div>
+                                            <div class="row marginTop8 padLeft12">
+                                                <label><input type="radio" class="marginRight4" value="PriceAndName" data-bind="checked: viewModel.changeTracking" /><!--ko text: context.resources.getString('CHANGE_ONLY') --><!--/ko--></label>
+                                            </div>
+                                            <div class="row marginTop8 padLeft12">
+                                                <label><input type="radio" class="marginRight4" value="OldPrice" data-bind="checked: viewModel.changeTracking" /><!--ko text: context.resources.getString('OLD_PRICE') --><!--/ko--></label>
+                                            </div>
+
+                                            <div class="marginTop12 padLeft12 padRight12" style="display: block;">
+                                                <h3 class="secondaryFontColor" data-bind="text: context.resources.getString('SET_QUANTITY_AS')"></h3>
+                                            </div>
+                                            <div class="row marginTop8 padLeft12">
+                                                <label><input type="radio" class="marginRight4" value="Available" data-bind="checked: viewModel.selectedQtySource" /><!--ko text: context.resources.getString('QUANTITY_ON_HAND') --><!--/ko--></label>
+                                            </div>
+                                            <div style="display:none">
+                                                <div class="row marginTop8 padLeft12">
+                                                    <label><input type="radio" class="marginRight4" value="OrderReceived" data-bind="checked: viewModel.selectedQtySource" /><!--ko text: context.resources.getString('ORDER_RECEIVED_BETWEEN') --><!--/ko--></label>
+                                                </div>
+                                                <div class="row marginTop8 padLeft12">
+                                                    <label class="width44"><!--ko text: context.resources.getString('FROM_DATE') --><!--/ko--> :</label>
+                                                    <div id="divFromDate"></div>
+                                                </div>
+                                                <div class="row marginTop8 padLeft12">
+                                                    <label class="width44"><!--ko text: context.resources.getString('TO_DATE') --><!--/ko--> :</label>
+                                                    <div id="divToDate"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="row marginTop8 padLeft12">
+                                                    <label><input type="radio" class="marginRight4" value="Fixed" data-bind="checked: viewModel.selectedQtySource" /><!--ko text: context.resources.getString('FIXED_QUANTITY') --><!--/ko--></label>
+                                                </div>
+                                                <div class="row marginTop8 padLeft12">
+                                                    <label class="width64"><!--ko text: context.resources.getString('QUANTITY') --><!--/ko--> :</label>
+                                                    <input type="number" class="width200" data-bind="value: viewModel.itemQuantity" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="buttonsContainer row marginTop8 marginBottom8">
+                                <div class="col buttonContainer blockWidth"></div>
+                                <div class="buttonContainer col no-shrink">
+                                    <button type="button" class="stretch secondaryButton"
+                                            data-bind="click: CancelWizardHandler, visible: !page0Visible(), resx: { ariaLabel: 'string_76' }">
+                                        <!--ko text: context.resources.getString('CANCEL_BUTTON_TEXT') --><!--/ko-->
+                                    </button>
+                                </div>
+                                <div class="col width4"></div>
+                                <div class="buttonContainer col no-shrink" data-bind="visible: !viewModel.showWizard()">
+                                    <button type="button" class="stretch primaryButton"
+                                            data-bind="click: AddItemHandler">
+                                        <!--ko text: context.resources.getString('ADD_BUTTON_TEXT') --><!--/ko-->
+                                    </button>
+                                </div>
+                                <div class="row" data-bind="visible: viewModel.showWizard()">
+                                    <div class="col width4"></div>
+                                    <div class="buttonContainer col no-shrink">
+                                        <button type="button" class="stretch primaryButton"
+                                                data-bind="click: OkHandler, enable: (viewModel.labelType() != 2), visible: page0Visible(), resx: { ariaLabel: 'string_75' }, css: { secondaryButton: (viewModel.labelType() == 2) }">
+                                            <!--ko text: context.resources.getString('OK_BUTTON_TEXT') --><!--/ko-->
+                                        </button>
+                                    </div>
+                                    <div class="col width4"></div>
+                                    <div class="buttonContainer col no-shrink">
+                                        <button type="button" class="stretch primaryButton"
+                                                data-bind="click: BackHandler, enable: btnBackEnable, visible: !page0Visible(), resx: { ariaLabel: 'string_49' }, css: { secondaryButton: !btnBackEnable() }">
+                                            <!--ko text: context.resources.getString('BACK_BUTTON_TEXT') --><!--/ko-->
+                                        </button>
+                                    </div>
+                                    <div class="col width4"></div>
+                                    <div class="buttonContainer col no-shrink">
+                                        <button type="button" class="stretch primaryButton"
+                                                data-bind="click: NextHandler, enable: btnNextEnable, visible: !page0Visible(), resx: { ariaLabel: 'string_1448' }, css: { secondaryButton: !btnNextEnable() }">
+                                            <!--ko text: context.resources.getString('NEXT_BUTTON_TEXT') --><!--/ko-->
+                                        </button>
+                                    </div>
+                                    <div class="col width4"></div>
+                                    <div class="buttonContainer col no-shrink">
+                                        <button type="button" class="stretch primaryButton"
+                                                data-bind="click: FinishHandler, enable: btnFinishEnable, visible: !page0Visible(), css: { secondaryButton: !btnFinishEnable() }">
+                                            <!--ko text: context.resources.getString('FINISH_BUTTON_TEXT') --><!--/ko-->
+                                        </button>
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--<div id="section-to-print" class=""></div>-->
+</body>
+</html>

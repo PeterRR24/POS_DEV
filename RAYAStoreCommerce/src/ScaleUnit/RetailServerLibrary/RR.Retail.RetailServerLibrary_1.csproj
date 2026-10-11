@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CustomizationPackage.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RR.Retail.RetailServerLibrary</AssemblyName>
+    <RootNamespace>RR.Retail.RetailServerLibrary</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dynamics.Commerce.Sdk.Runtime" Version="$(CommerceSdkPackagesVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mobility\RR.Commerce.Runtime.Mobility_1.csproj" />
+    <ProjectReference Include="..\Printing\RR.Commerce.Runtime.Printing_1.csproj" />
+    <ProjectReference Include="..\Reporting\RR.Commerce.Runtime.Reporting_1.csproj" />
+    <ProjectReference Include="..\Utilities\RR.Commerce.Runtime.Utilities_1.csproj" />
+
+  </ItemGroup>
+</Project>
